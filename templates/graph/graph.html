@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% block title %}Graph{% endblock %}
+
+{% block content %}
+  <head>
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static',filename='style.css') }}" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+
+<style>
+.sideSearchForm {
+  width: 100%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+</style>
+
+<div class = "container_search" style="width: 50%;">      
+  <form class = "search" method="POST" >
+    <label style="width: 50%;">Mapping Your Research</label>
+    <input type="text" class = "sideSearchForm" name="DOI" id="DOI" placeholder="paste wiki link" required style="width: 50%;">
+    <button type = "submit" class = "searchButton" value="Search">
+      <i class="fa fa-search"></i> 
+    </button>
+  </form>
+</div>
+<div id="container" style="height: 80%; width: 100%; display: flex;">
+  
+  <div id="chart" style="height: 100%; width: 80%;"></div>
+  <div style="height: 100%; width: 20%;">
+    <textarea id="display" style="height: 50%; width: 100%;" readonly></textarea>
+    <div id="containarDemo" style="height: 50%; width: 100%; " hidden></div>    
+  </div>
+  
+</div>
+
+
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script> -->
+
+
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.7.0/echarts.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.min.js"></script>
+<script type="text/javascript" src="{{url_for('static', filename='echartsall/echarts.all.js')}}"></script> -->
+
+<script type="text/javascript" src="{{url_for('static', filename='echarts.js')}}"></script>
+<script>
+
+  
+/*  
+  2020.07.05. test code.
+  console.log("nodes:");
+  console.log(JSON.stringify( {{ nodes| tojson}}));
+
+  console.log("links:");
+  console.log(JSON.stringify( {{ links| tojson}}));
+
+  console.log("categories:");
+  console.log(JSON.stringify( {{ categories| tojson}}));
+*/
+  
+  var chart = document.getElementById("chart");
+  var myChart1 = echarts.init(chart);
+  window.onresize = function () {
+    var mychart11 = echarts.init(document.getElementById('chart'));
+    mychart11.resize();
+  }
+  myChart1.setOption(option = {
+    title: {
+      text: 'demo'
+    },
+    animationDurationUpdate: 10,
+    animationEasingUpdate: 'quinticInOut',
+    animation:false,
+    series: [
+      {
+        type: 'graph',
+        layout: 'force',
+        force: {
+          repulsion: 100,
+          gravity: 0.03,
+          edgeLength: 70
+        },
+        animation:false,
+        zoom: 2,
+        width: "100%",
+        height: "100%",
+        data: {{ nodes| tojson}},
+        edges: {{ links| tojson}}, // links <=> edges
+        categories: {{ categories| tojson}},
+        label: {
+          emphasis: {
+            position: 'right',
+            show: true
+          }
+        },
+        roam: true,
+        focusNodeAdjacency: true,
+        lineStyle: {
+          normal: {
+            width: 2,
+            // curveness: 0.5,
+            opacity: 2
+          }
+        }
+      }
+    ]
+  });
+
+//------------------------------
+
+var dom = document.getElementById("containarDemo");
+var myChartDemo = echarts.init(dom);
+var app = {};
+optDemo = null;
+  window.onresize = function () {
+    var myChartDemo = echarts.init(document.getElementById('chart'));
+    myChartDemo.resize();
+  }
+function createNodes(count) {
+    var nodes = [];
+    for (var i = 0; i < count; i++) {
+        nodes.push({
+            name:'void',
+            //title:'Hahaha',
+            //desc:'hello void',
+            id: i,
+        });
+    }
+    return nodes;
+}
+
+function createEdges(count) {
+    var edges = [];
+    if (count === 2) {
+        return [[0, 1]];
+    }
+    for (var i = 0; i < count; i++) {
+        edges.push([i, (i + 1) % count]);
+    }
+    return edges;
+}
+
+var datas = [];
+for (var i = 0; i < 10; i++) {
+    datas.push({
+        nodes: createNodes(i + 2),
+        edges: createEdges(i + 2)
+    });
+}
+
+// 2020.07.2 test code for echarts.
+// console.log("datas:")
+// console.log(JSON.stringify(datas))
+
+optDemo = {
+    series: datas.map(function (item, idx) {
+        return {
+            type: 'graph',
+            layout: 'force',
+            animation: false,
+            data: item.nodes,
+            left: (idx % 4) * 25 + '%',
+            top: Math.floor(idx / 4) * 25 + '%',
+            width: '25%',
+            height: '25%',
+            force: {
+                // initLayout: 'circular'
+                // gravity: 0
+                repulsion: 50,
+                edgeLength: 2
+            },
+            edges: item.edges.map(function (e) {
+                return {
+                    source: e[0],
+                    target: e[1]
+                };
+            })
+        };
+    })
+};
+;
+if (optDemo && typeof optDemo === "object") {
+    myChartDemo.setOption(optDemo, true);//2020.06.25
+}
+       </script>
+{% endblock %}

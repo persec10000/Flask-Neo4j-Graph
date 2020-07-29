@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static',filename='style.css') }}" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  </head>
+  <body>
+    <nav class = "navbar">
+      <div class = "container">
+	      <img src="{{url_for('static',filename='logo.png')}}" alt="logo_image" width = "150" /></div> 
+      <ul>
+        <li><a href="/patent">Patent</a></li>
+        <li class="current_page"><a href="/">Wiki</a></li>
+        <li><a href="/literature">Literature</a></li>
+      </ul>
+    </nav>
+    <div class = "container_search">
+      <div>
+        <h1 class = "hero-header">Mapping Your Research</h1>
+      </div>
+      <div id="container" style="padding-left: 20%;padding-right: 20%">
+        <form class = "search" method="POST">
+          <input type="text" class = "searchTerm" name="DOI" id="DOI" placeholder="paste wiki link" required >
+          <button type = "submit" class = "searchButton" value="Search">
+            <i class="fa fa-search"></i> </button>
+        </form>
+      </div>
+    </div>
+    <div class = "instruction-container"> <div class = "instruction">
+      <h2>
+        <strong>Instructions</strong>
+      </h2>
+      <p> 1. Directly paste the wiki link you want to research about</p>
+      <p> 2. Click "Search" button to see the relation citation graph</p>
+    </div></div>
+</body>
+
+</html>

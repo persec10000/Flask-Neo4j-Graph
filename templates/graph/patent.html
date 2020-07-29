@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href = "{{ url_for('static',filename='style.css') }}" media="all" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  </head>
+  <body>
+    <nav class = "navbar">
+      <div class = "container"><img src="{{ url_for('static',filename='logo.png') }}" alt="logo_image"  width = "150" /></div> 
+      <ul>
+        <li class="current_page"><a href="/patent">Patent</a></li>
+        <li><a href="/">Wiki</a></li>
+        <li><a href="/literature">Literature</a></li>
+      </ul>
+    </nav>
+    <div class = "container">
+        <div>
+          <h1 class = "hero-header">To be posted</h1>
+        </div>
+    </div>
+  </body>
+
+</html>

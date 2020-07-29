@@ -1,0 +1,139 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+html, body, section {margin:0;padding:0;height:100%;}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  float: right;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.current_page {
+  text-decoration: underline overline #00B4CC;
+}
+
+li a {
+  display: block;
+  color:#00B4CC;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  color: antiquewhite;
+  background-color:#00B4CC;
+}
+
+body{
+  background: #f2f2f2;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 36px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+
+.container {
+  background: #f2f2f2;
+  overflow: hidden;
+}
+
+.instruction-container {
+  position: relative;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  padding-left: 320px;
+
+  text-align: center;
+}
+
+.instruction {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: left;
+}
+
+.hero-header {
+  font-size: 29px;
+  margin-top: 0;
+  line-height: 1.5;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.navbar{
+  position: relative;
+  min-height: 70px;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+#container{
+  /*max-width: 600px;*/
+  position: relative;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 36px auto 10px;
+}
+
+
+h1 {
+  display: black;
+  margin: 10px 0;
+  font-weight: bold;
+  font-family: inherit;
+  line-height: 1.4;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+h2 {
+  font-size: 17px;
+  margin-bottom: 8px;
+  margin: 6px 0;
+  line-height: 1.4;
+  font-weight: 400;
+  font-family: inherit;
+  margin-block-start: 1.67em;
+  margin-block-end: 1.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
